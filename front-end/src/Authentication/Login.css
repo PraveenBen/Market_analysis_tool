@@ -1,0 +1,76 @@
+/* Adjustments to the Login Page CSS */
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000E09;
+  }
+  
+  .login-form {
+    background-color: #000E09;
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px; /* Adjusted width for better readability */
+  }
+  
+  h2 {
+    color: #36A546CC;
+    margin-bottom: 20px; /* Reduced margin for better spacing */
+    font-family: 'Mulish', sans-serif; /* Adjusted font family */
+    font-weight: normal; /* Changed to 'normal' for consistent font weight */
+    font-size: 20px; /* Increased font size for better visibility */
+    margin-bottom: 50px;
+  }
+  
+  .login-form input[type="email"],
+  .login-form input[type="password"] {
+    width: 300px; /* Adjusted width to take up full width */
+    padding: 15px; /* Increased padding for better input field appearance */
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border: 2px solid #4A494947;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: #1F191966;
+  }
+  
+  .login-form .btn {
+    background-color: #00FF2580;
+    color: #fff;
+    width: 335px;
+    height: 50px; /* Increased height for better clickability */
+    border: none;
+    border-radius: 20px;
+    font-size: 18px; /* Increased font size for better visibility */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Added transition for smoother hover effect */
+  }
+  
+  .login-form .btn:hover {
+    background-color: #45a049;
+  }
+  
+  a {
+    color: #45a049;
+    text-decoration: none;
+    font-size: 14px; /* Increased font size for better visibility */
+  }
+  p{
+    margin-right: 175px;
+  }
+  .forgot-pass{
+    margin-top: 100px;
+  }
+  
+  /* Responsive Design Adjustments */
+  @media only screen and (max-width: 768px) {
+    .login-form {
+      width: 80%; /* Adjusted width for smaller screens */
+      padding: 20px; /* Reduced padding for better fit */
+    }
+  }
+  
