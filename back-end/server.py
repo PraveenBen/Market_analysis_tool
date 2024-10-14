@@ -16,7 +16,7 @@ def index():
 
 @app.route("/Amazon_handler",methods=['POST'])
 def Amazon_handler():
-    
+        
     item_amz=request.json.get('searchText')
     if item_amz is not None:
         filename = item_amz.replace(' ', '_')
@@ -28,7 +28,7 @@ def Amazon_handler():
         browser.get(link_amz)
         soup = bs(browser.page_source, 'html5lib')
 
-        products
+        products=[]
 
         try:
             for n in range(2):
@@ -61,7 +61,7 @@ def Amazon_handler():
                         price= "Out of Stock" if S_item.find('span',class_='a-price-whole') is None else S_item.find('span',class_='a-price-whole').text
                         rating = 'Not Available' if S_item.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-size-base s-underline-text") is None else float(S_item.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-icon-alt").text[0:3])
                         total_rating = 'Not Available' if S_item.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-size-base s-underline-text") is None else int(S_item.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-size-base s-underline-text").text.replace(',',''))
-                        links = 'amazon.in' + S_item.find('a',class_='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal').get('href')
+                        links = 'https://www.amazon.in' + S_item.find('a',class_='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal').get('href')
                         
                         
                         product_info = {
@@ -80,7 +80,7 @@ def Amazon_handler():
                         price= i_ad.find('span',class_='a-price-whole').text
                         rating = 'Not Available' if i_ad.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-size-base s-underline-text") is None else float(i_ad.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-icon-alt").text[0:3])
                         total_rating = 'Not Available' if i_ad.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-size-base s-underline-text") is None else int(i_ad.find('div',class_='a-section a-spacing-none a-spacing-top-micro').find('span',class_="a-size-base s-underline-text").text.replace(',',''))
-                        links = 'amazon.in' + i_ad.find('a',class_='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal').get('href')
+                        links = 'https://www.amazon.in' + i_ad.find('a',class_='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal').get('href')
 
                         
                         product_info = {
@@ -114,6 +114,8 @@ def Amazon_handler():
                 link_amz='https://www.amazon.in/'+soup.find('span', class_="rush-component s-latency-cf-section").find('span',class_='s-pagination-strip').find('a').get('href')
         except AttributeError : 
             print('Attribute Error| too many requests: Amazon identify bots')
+        except Exception:
+            print("Execption...")
         
         print(products)
         browser.quit()
@@ -179,7 +181,7 @@ def Flikart_handler():
                     }
                     products.append(product_info)
         browser.quit()
-        
+        print(products)
         product=pd.DataFrame(products)
         product.to_csv('D:/Scrape_test/fkt_' + filename + '.csv',index=False)
         product.to_json('D:/Scrape_test/fkt_' + filename + '.json',orient='index')

@@ -1,0 +1,30 @@
+const express = require('express')
+const mysql = require('mysql');
+const cors = require('cors');
+
+const app = express(cors());
+
+app.request;
+const db = mysql.createConnection({
+    host: "localhost",
+    user:'root',
+    password: "",
+    database: "market_analysis_db"
+})
+
+app.post('/login',(req,res)=>{
+    const sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+    
+    db.query(sql,[req.body.email,req.body.password],(err,data)=>{
+        if(err) return res.json("Login failed");
+        return res.json(data)
+    })
+})
+
+app.get('/',(re,res)=>{
+    return res.json("Backend- is running")
+})
+
+app.listen(3001, ()=>{
+    console.log('Listening.....')
+})

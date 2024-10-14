@@ -1,0 +1,48 @@
+.about-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .about-page h1 {
+    text-align: center;
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  .about-page h2 {
+    margin-top: 20px;
+    color: #007bff;
+  }
+  
+  .about-page p {
+    line-height: 1.6;
+    color: black;
+    margin-bottom: 10px;
+  }
+
+  .title-head {
+    color: white;
+  }
+  
+  .about-page ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .about-page ul li {
+    margin-bottom: 5px;
+  }
+  
+  .about-page ul li:before {
+    content: '•';
+    color: #007bff;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  

@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Home.css'
+import { Link } from 'react-router-dom';
+import './Home.css';
 
-const HomePage = () => {
+const HomePage = ({ isLoggedIn }) => {
   const [searchText, setSearchText] = useState('');
-  const [searchResult, setSearchResult] = useState('');
+  const [searchResult, setSearchResult] = useState(null);
   const [operation, setOperation] = useState('');
+  const [pagename, setPagename] = useState('');
 
   const handleSearch = async () => {
     try {
+      let response;
       if (operation === 'Amazon') {
-        // Perform operation 1
-        console.log("amazon started");
-        const response = await axios.post('http://127.0.0.1:5000/Amazon_handler', {
-          searchText: searchText
-        });
-        setSearchResult(response.data);
+        console.log("Amazon search started");
+        setPagename('Amazon');
+        response = await axios.post('http://127.0.0.1:5000/Amazon_handler', { searchText });
       } else if (operation === 'Flipkart') {
-        // Perform operation 2
-        console.log("Flipkart started");
-        const response = await axios.post('http://127.0.0.1:5000/Flipkart_handler', {
-          searchText: searchText
-        });
+        console.log("Flipkart search started");
+        setPagename('Flipkart');
+        response = await axios.post('http://127.0.0.1:5000/Flipkart_handler', { searchText });
+      }
+
+      if (response && response.data) {
         setSearchResult(JSON.parse(response.data));
         console.log(response.data);
       }
@@ -30,40 +31,56 @@ const HomePage = () => {
     }
   };
 
-  
-
-
   return (
     <div>
-      <h1>Search Page</h1>
-      <input
-        type="text"
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-      />
-      <button onClick={() => {setOperation('Amazon'); handleSearch();}}>Amazon Search</button>
-      <button onClick={() => {setOperation('Flipkart'); handleSearch();}}>Flipkart search</button>
-      {searchResult && (
-        <div>
-          <div className="products">
-            {Object.keys(searchResult).map((key) => {
-              const product = searchResult[key];
-              return (
-                <div className="product" key={key}>
-                  <h2>{product.Name}</h2>
-                  <p>Price: {product.Price}</p>
-                  <p>Rating: {product.Rating}</p>
-                  <p>Total Ratings: {product["Total Ratings"]}</p>
-                  <a href={product.Link} target="_blank" rel="noopener noreferrer">View on Flipkart</a>
+      
+      
+          <header>
+            Market Analysis Tool
+            <div class='header'>
+              <Link to="/About" className='about-button'>
+                <button class='about-button'>About</button>
+              </Link>
+              <Link to="/profile" className="profile-link" >
+             <button class='profile-button'> Profile</button>
+             </Link> 
+             <Link to='/' className='Logout-button'>
+              <button className='logout'>Logout</button>
+              
+            </Link>
+            </div>
+          </header>
+          <main>
+            <h1>Search Page</h1>
+            <input
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <button onClick={() => { setOperation('Amazon'); handleSearch(); }}>Amazon Search</button>
+            <button onClick={() => { setOperation('Flipkart'); handleSearch(); }}>Flipkart Search</button>
+            {searchResult && (
+              <div>
+                <div className="products">
+                  {Object.keys(searchResult).map((key) => {
+                    const product = searchResult[key];
+                    return (
+                      <div className="product" key={key}>
+                        <h2>{product.Name}</h2>
+                        <p>Price: {product.Price}</p>
+                        <p>Rating: {product.Rating}</p>
+                        <p>Total Ratings: {product["Total Ratings"]}</p>
+                        <a href={product.Link} target="_blank" rel="noopener noreferrer">View on {pagename}</a>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
+              </div>
+            )}
+          </main>
+        
     </div>
   );
-  
 };
 
 export default HomePage;
