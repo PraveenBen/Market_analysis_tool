@@ -40,7 +40,7 @@ const Signup = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post('http://localhost:5000/signup', formData);
+        const response = await axios.post('http://localhost:5001/signup', formData);
         alert('Signup successful',{response});
         navigate('/');
       } catch (error) {
